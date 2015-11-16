@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+from optparse import OptionParser
+from awstools import AwsUtils
+
+
+parser = OptionParser()
+parser.add_option("--instance", dest="instance", default="i-123456", help="Instance ID to collect information from")
+parser.add_option("--tag", dest="tag", default="Name", help="Value to return for key")
+
+
+(options, args) = parser.parse_args()
+try:
+    aws = AwsUtils(options.instance)
+    print aws.get_tags()[options.tag]
+
+except:
+    print sys.exc_info()[1]
+    sys.exit(1)
+

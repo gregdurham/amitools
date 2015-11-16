@@ -3,7 +3,7 @@
 
 import sys
 from optparse import OptionParser
-from awstools import AwsUtils
+from amitools import AwsUtils, get_key
 
 
 parser = OptionParser()
@@ -14,7 +14,8 @@ parser.add_option("--tag", dest="tag", default="Name", help="Value to return for
 (options, args) = parser.parse_args()
 try:
     aws = AwsUtils(options.instance)
-    print aws.get_tags()[options.tag]
+    tags = aws.get_tags()
+    print get_key(tags, options.tag)
 
 except:
     print sys.exc_info()[1]
